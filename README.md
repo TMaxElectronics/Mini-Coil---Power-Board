@@ -3,13 +3,16 @@ If you want to build one have a look at the entire project here: ...link TBD...
 Are you building one right now and need info on it? Then keep reading :)
 
 # How to build this part of the coil
-This board is the dc-bus capacitance and probably the simplest one in the entire coil. 
+![image](https://github.com/TMaxElectronics/Mini-Coil---Power-Board/blob/master/board.jpg?raw=true)
+This board is the power/full bridge board. It is a little bit tricky due to its high thermal mass.
 
 Here's what you'll need to build it:
  - Soldering Iron
  - Solder (I suggest leaded solder if you don't have a powerful iron)
  - PCB Components (listed below)
  - at least one Cap Board PCB :)
+ - optional but useful: hot air rework station
+ - optional but useful: reflow oven (or just a toaster set to 150°C works fine too)
  
 # BOM (bill Of Material)
 The BOM can be found in the file "Bill of Materials-Mini-Coil - Power Board.xlsx". It contains part numbers of some of the specialised components for ordering on digikey.
