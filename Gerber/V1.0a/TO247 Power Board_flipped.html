@@ -1,0 +1,616 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+        h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+            padding: 0.3em;
+        }
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+        body {
+			font-family : segoe ui;
+        }
+
+        td, th {
+            padding: 0.5em;
+			text-align : left;
+			width: 10em;
+        }
+        th {
+			background-color : #EEEEEE;
+
+        }
+        th.column1, td.column1 {
+            text-align: left;
+            width : auto;
+        }
+        table {
+            width : 100%;
+			font-size: 0.9em;
+        }
+        
+        .DRC_summary_header {                           
+            padding-bottom : 0.1em;
+            border : 0px solid black;                           
+            width: 100%;
+			align: left;
+        }
+
+        .DRC_summary_header_col1, 
+        .DRC_summary_header_col2, 
+        .DRC_summary_header_col3  {
+            color : black;
+            font-size:100%;
+                        padding : 0em;
+            padding-top : 0.2em;
+            padding-bottom 0.2em;
+            border : 0px solid black;
+            vertical-align: top;
+			text-align: left;
+        }
+        
+        .DRC_summary_header_col1 {                              
+			font-weight: bold;
+			width: 8em;
+        }
+
+        .DRC_summary_header_col2 {       
+			width: 0.1em;
+		
+        }
+
+        .DRC_summary_header_col3 {       
+			width : auto;
+        }
+
+        .header_holder  {
+        Width = 100%;
+        border = 0px solid green;
+        padding = 0;
+        }
+        
+        
+        .front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+            left:0;
+            top:0;
+			padding: 0em;
+            padding-top : 0.1em;            
+            border : 0px solid black;
+            width : 100%;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        .front_matter_column1 {
+            width : 8em;   
+			font-weight: bold;
+        }
+        
+        .front_matter_column2 {
+            width: 0.1em;
+        }
+
+        .front_matter_column3 {
+            width         : auto;  
+        }
+        
+        .total_column1, .total_column {
+            font-weight : bold;
+        }
+        .total_column1 {
+			text-align : left;
+        }
+        .warning, .error {
+            color : red;
+            font-weight : bold;
+        }
+        tr.onmouseout_odd {
+			background-color : #white;
+        }
+        tr.onmouseout_even { 
+			background-color : #FAFAFA;
+        }
+        tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+        } 
+        a:link, a:visited, .q a:link,.q a:active,.q {
+            color: #21489e; 
+        }
+        a:link.callback, a:visited.callback { 
+            color: #21489e; 
+        }
+        p.contents_level1 {
+            font-weight : bold;
+            font-size : 110%;
+            margin : 0.5em;
+        }
+        p.contents_level2 {
+            position : relative;
+            left : 20px;
+            margin : 0.5em;
+        }
+    </style><script type="text/javascript">
+        function coordToMils(coord) {
+            var number = coord / 10000;
+            
+            if (number != number.toFixed(3))
+                number = number.toFixed(3);
+
+            return number + 'mil'
+        }
+
+        function coordToMM(coord) {
+            var number = 0.0254 * coord / 10000;
+            
+            if (number != number.toFixed(4))
+                number = number.toFixed(4);
+            
+            return number + 'mm'
+        }
+    
+        function convertCoord(coordNode, units) {
+            for (var i = 0; i < coordNode.childNodes.length; i++) {
+                coordNode.removeChild(coordNode.childNodes[i]);
+            }
+
+            var coord = coordNode.getAttribute('value');
+            if (coord != null) {
+                if (units == 'mm') {
+                    textNode = document.createTextNode(coordToMM(coord));
+                    coordNode.appendChild(textNode);
+                } else if (units == 'mil') {
+                    textNode = document.createTextNode(coordToMils(coord));     
+                    coordNode.appendChild(textNode);    
+                }
+            }
+        }
+    
+        function convertUnits(unitNode, units) {
+            for (var i = 0; i < unitNode.childNodes.length; i++) {
+                unitNode.removeChild(unitNode.childNodes[i]);       
+            }
+        
+            textNode = document.createTextNode(units); 
+            unitNode.appendChild(textNode);
+        }
+    
+        function changeUnits(radio_input, units) {
+            if (radio_input.checked) {
+            
+                var elements = document.getElementsByName('coordinate');
+                if (elements) {
+                    for (var i = 0; i < elements.length; i++) {
+                        convertCoord(elements[i], units);
+                    }
+                }
+    
+                var elements = document.getElementsByName('units');
+                if (elements) {
+                    for (var i = 0; i < elements.length; i++) {
+                        convertUnits(elements[i], units);
+                    }
+                }
+            }
+        }
+    </script></head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+        "><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">10/05/2023</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">21:25:30</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc" class="file"><acronym title="F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc">F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">86</td></tr>
+</table>
+</td>
+</table><a name="IDODZ1EHGOYUGHHZOW0UY2MRZKPNDWB5ZXGBC5RJHAEQJGM02IFBG"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVFQDOUOENB1DE4ZQGBZSOIANYCWOWBDDCJYC5DESJURAEXGFOLKK">Clearance Constraint (Gap=1.5mm) (InNetClass('HV_GND')),(not InNetClass('HV_GND'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDC4QF3N30ORAVHJH3LIXIAV2ARJRG5Q4AUMLJQ4NCXSAOWJ2HNCBN">Clearance Constraint (Gap=1.5mm) (InNetClass('VBus')),(not InNetClass('VBus'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDB5ZBHCHSXLGAJ1BNAKOWIZ2ITDSTHI1K0CXJSTMLYUT5IUQUNULI">Clearance Constraint (Gap=1.5mm) (InNetClass('HV_G1')),(not InNetClass('HV_G1'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAFIDWDQR4N3JCDCJSLOLOQONHOTMWJJWX2A1FMNJXMUNUUY54JXO">Clearance Constraint (Gap=1.5mm) (InNetClass('HV_G3')),(not InNetClass('HV_G3'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVM33WIAAZ0PHHTYMVPJUGGH1UBOG3BWSGN1UDQOSOV4UJCVZABZE">Clearance Constraint (Gap=1.5mm) (InNetClass('HV_GENERAL')),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFKDPVUEZ0COHIQRE4QBEM3FTADK4GWKHCSO2CZBIGB0RVYV0BSJM">Clearance Constraint (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMOUL4YMQEED5N2QIXW5QLKTKYF5PUNEK2N5OMNFGGW3UODPLTYGP">Clearance Constraint (Gap=1.5mm) (InNet('Earth')),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDA2FAS2BTKTW4INFNYT5Z0O5D1O2ZJH2T5TMAO3EL5WE5GERPP1XG">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQ412HHIXN0EQM1UZBI2DEAODSEGKA14NVMWLOQEERYZBVRHNITAD">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2JYPZG5Q53J2ND5Y3NMU5NBVJDBHP3HFUOUDS2GNF2NXWZKD5RYO">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXP4UFJX54M2WLCPLIMVX2TDGYI20TCJVAFGVBPDJO4JYJNGCXWXO">Width Constraint (Min=0.153mm) (Max=10mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDF4LI2E1VB02GDIFC12Y3G1LWAN5BHNT3TA1GCXFYI2QUHWGHHS3I">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID1XUYRX5JTDHVGWUO545DXXSJAM4SLHHD2J5Y4MPGC4Y0I4DJY3LN">Hole Size Constraint (Min=0.025mm) (Max=10mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGIRWS5RVVCKSPQQOBIM1N5OV3FRG3Y4OS3014ZFBACM1DU2DDQSN">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2PTXGXODFXQQBY11BCZCJZI5GLKGEAKSPIVFF1PYPYMTF54PEW0D">Minimum Solder Mask Sliver (Gap=0mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1FR3LSJPCPJDFDT5ZNZ1PUUOKN0N2FUXN3FBBQGUCWE3TKQDUEHG">Silk To Solder Mask (Clearance=0mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXHNQKC5BPANKOVWF5LEZPWE0NI4KSSDCX33ORNN5ZAGU1DHEKY1J">Silk to Silk (Clearance=0mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVMTZYSHC3SYDBPBQQPPJDK1LJJG325DJZQ1CQFH5UVRUJWC2T3FH">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZNIRPFUE13TTD24ENTVFFI2ZBOZGLAZPVILO54MYVUWT2TZNNAFF">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">84</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMA05JACTQIW5FA3C2UWCHRK44G5WNMUEA31I2XOBOIQQTAO5VJMO">Room TO247 Power Board (Bounding Region = (0mm, 0mm, 344.297mm, 309.499mm) (InComponentClass('TO247 Power Board'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDH3IYQQD0COI5JZ3YXXAP0N5EUOHZUKSBR1W4ZRJMTEOHVNJLSTIJ">Height Constraint (Min=0mm) (Max=500mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">86</td>
+</tr>
+</table><br><a name="IDQ412HHIXN0EQM1UZBI2DEAODSEGKA14NVMWLOQEERYZBVRHNITAD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5734.025mil|Location2.X=6083.891mil|Location1.Y=4812.402mil|Location2.Y=5028.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5734.025mil|Location2.X=6083.891mil|Location1.Y=4812.402mil|Location2.Y=5028.937mil|Absolute=True">Un-Routed Net Constraint: Net Out1 Between Pad J3-1(147.346mm,124.985mm) on Multi-Layer And Pad J3-(151.781mm,124.985mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5734.025mil|Location2.X=6083.891mil|Location1.Y=5660.039mil|Location2.Y=5876.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5734.025mil|Location2.X=6083.891mil|Location1.Y=5660.039mil|Location2.Y=5876.575mil|Absolute=True">Un-Routed Net Constraint: Net Out2 Between Pad J4-1(147.346mm,146.515mm) on Multi-Layer And Pad J4-(151.781mm,146.515mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDZNIRPFUE13TTD24ENTVFFI2ZBOZGLAZPVILO54MYVUWT2TZNNAFF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4732.44mil|Location2.Y=4759.686mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4732.44mil|Location2.Y=4759.686mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q1-1(78mm,120.55mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q1-2(78mm,126mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5161.574mil|Location2.Y=5188.82mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5161.574mil|Location2.Y=5188.82mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q1-3(78mm,131.45mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4043.463mil|Location2.Y=4070.71mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4043.463mil|Location2.Y=4070.71mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q2-1(78mm,103.05mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q2-2(78mm,108.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4472.597mil|Location2.Y=4499.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=4472.597mil|Location2.Y=4499.844mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q2-3(78mm,113.95mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=6189.133mil|Location2.Y=6216.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=6189.133mil|Location2.Y=6216.379mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q3-1(78mm,157.55mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q3-2(78mm,163mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=6618.266mil|Location2.Y=6645.513mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=6618.266mil|Location2.Y=6645.513mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q3-3(78mm,168.45mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5500.156mil|Location2.Y=5527.403mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5500.156mil|Location2.Y=5527.403mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q4-1(78mm,140.05mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q4-2(78mm,145.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5929.29mil|Location2.Y=5956.537mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2957.775mil|Location2.X=3029.212mil|Location1.Y=5929.29mil|Location2.Y=5956.537mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q4-3(78mm,150.95mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4472.597mil|Location2.Y=4499.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4472.597mil|Location2.Y=4499.844mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q5-1(172mm,113.95mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q5-2(172mm,108.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4043.463mil|Location2.Y=4070.71mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4043.463mil|Location2.Y=4070.71mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q5-3(172mm,103.05mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5161.574mil|Location2.Y=5188.82mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5161.574mil|Location2.Y=5188.82mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q6-1(172mm,131.45mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q6-2(172mm,126mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4732.44mil|Location2.Y=4759.686mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=4732.44mil|Location2.Y=4759.686mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q6-3(172mm,120.55mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=6618.266mil|Location2.Y=6645.513mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=6618.266mil|Location2.Y=6645.513mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q8-1(172mm,168.45mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q8-2(172mm,163mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=6189.133mil|Location2.Y=6216.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=6189.133mil|Location2.Y=6216.379mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q8-3(172mm,157.55mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5929.29mil|Location2.Y=5956.537mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5929.29mil|Location2.Y=5956.537mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q9-1(172mm,150.95mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q9-2(172mm,145.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5500.156mil|Location2.Y=5527.403mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6857.496mil|Location2.X=6928.933mil|Location1.Y=5500.156mil|Location2.Y=5527.403mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Pad Q9-3(172mm,140.05mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5629.706mil|Location2.X=5671.701mil|Location1.Y=6752.855mil|Location2.Y=6793.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5629.706mil|Location2.X=5671.701mil|Location1.Y=6752.855mil|Location2.Y=6793.475mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.923mm &lt; 1mm) Between Board Edge And Text "C3" (143.764mm,169.799mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7319.703mil|Location2.X=7361.698mil|Location1.Y=3884.685mil|Location2.Y=3925.305mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7319.703mil|Location2.X=7361.698mil|Location1.Y=3884.685mil|Location2.Y=3925.305mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.254mm &lt; 1mm) Between Board Edge And Text "J1" (186.69mm,97.282mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7837.52mil|Location2.X=7878.14mil|Location1.Y=2803.862mil|Location2.Y=2845.857mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7837.52mil|Location2.X=7878.14mil|Location1.Y=2803.862mil|Location2.Y=2845.857mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.822mm &lt; 1mm) Between Board Edge And Text "Mains in" (188.174mm,69.986mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6358.197mil|Location2.X=6400.191mil|Location1.Y=6760.557mil|Location2.Y=6801.177mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6358.197mil|Location2.X=6400.191mil|Location1.Y=6760.557mil|Location2.Y=6801.177mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.532mm &lt; 1mm) Between Board Edge And Text "P7" (162.268mm,170.191mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.018mil|Location2.X=1996.638mil|Location1.Y=2852.768mil|Location2.Y=2894.763mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.018mil|Location2.X=1996.638mil|Location1.Y=2852.768mil|Location2.Y=2894.763mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.398mm &lt; 1mm) Between Board Edge And Text "PFC Filter" (50.398mm,73.034mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950.227mil|Location2.X=1990.848mil|Location1.Y=3234.761mil|Location2.Y=3276.756mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950.227mil|Location2.X=1990.848mil|Location1.Y=3234.761mil|Location2.Y=3276.756mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.103mm &lt; 1mm) Between Board Edge And Text "R7" (52.543mm,80.476mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950.228mil|Location2.X=1990.848mil|Location1.Y=3681.428mil|Location2.Y=3723.423mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1950.228mil|Location2.X=1990.848mil|Location1.Y=3681.428mil|Location2.Y=3723.423mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.103mm &lt; 1mm) Between Board Edge And Text "R9" (52.543mm,91.821mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4224.427mil|Location2.X=4295.864mil|Location1.Y=6782.014mil|Location2.Y=6809.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4224.427mil|Location2.X=4295.864mil|Location1.Y=6782.014mil|Location2.Y=6809.26mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (107.646mm,114.556mm)(107.646mm,172.556mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4913.404mil|Location2.X=4984.841mil|Location1.Y=6782.014mil|Location2.Y=6809.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4913.404mil|Location2.X=4984.841mil|Location1.Y=6782.014mil|Location2.Y=6809.26mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (107.646mm,172.556mm)(142.646mm,172.556mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5602.38mil|Location2.X=5673.817mil|Location1.Y=6782.014mil|Location2.Y=6809.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5602.38mil|Location2.X=5673.817mil|Location1.Y=6782.014mil|Location2.Y=6809.26mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (142.646mm,114.556mm)(142.646mm,172.556mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=4035.402mil|Location2.Y=4077.396mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=4035.402mil|Location2.Y=4077.396mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (163.322mm,103.05mm)(172mm,103.05mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=4724.378mil|Location2.Y=4766.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=4724.378mil|Location2.Y=4766.373mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (163.322mm,120.55mm)(172mm,120.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=5492.095mil|Location2.Y=5534.09mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=5492.095mil|Location2.Y=5534.09mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (163.322mm,140.05mm)(172mm,140.05mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=6181.071mil|Location2.Y=6223.066mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=6181.071mil|Location2.Y=6223.066mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (163.322mm,157.55mm)(172mm,157.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=4464.535mil|Location2.Y=4506.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=4464.535mil|Location2.Y=4506.53mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (165.862mm,113.95mm)(172mm,113.95mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=5153.512mil|Location2.Y=5195.507mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=5153.512mil|Location2.Y=5195.507mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (165.862mm,131.45mm)(172mm,131.45mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=5921.228mil|Location2.Y=5963.223mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=5921.228mil|Location2.Y=5963.223mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (165.862mm,150.95mm)(172mm,150.95mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=6610.205mil|Location2.Y=6652.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.552mil|Location2.X=6830.172mil|Location1.Y=6610.205mil|Location2.Y=6652.2mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (165.862mm,168.45mm)(172mm,168.45mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=3937.952mil|Location2.Y=3965.198mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=3937.952mil|Location2.Y=3965.198mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,100.37mm)(174.25mm,100.37mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=4578.109mil|Location2.Y=4605.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=4578.109mil|Location2.Y=4605.355mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,116.63mm)(174.25mm,116.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=4626.928mil|Location2.Y=4654.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=4626.928mil|Location2.Y=4654.175mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,117.87mm)(174.25mm,117.87mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=5267.085mil|Location2.Y=5294.332mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=5267.085mil|Location2.Y=5294.332mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,134.13mm)(174.25mm,134.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=5394.645mil|Location2.Y=5421.891mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=5394.645mil|Location2.Y=5421.891mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,137.37mm)(174.25mm,137.37mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=6034.802mil|Location2.Y=6062.048mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=6034.802mil|Location2.Y=6062.048mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,153.63mm)(174.25mm,153.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=6083.621mil|Location2.Y=6110.867mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=6083.621mil|Location2.Y=6110.867mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,154.87mm)(174.25mm,154.87mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=6723.778mil|Location2.Y=6751.025mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6833.884mil|Location2.X=6905.321mil|Location1.Y=6723.778mil|Location2.Y=6751.025mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (168.95mm,171.13mm)(174.25mm,171.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (174.25mm,100.37mm)(174.25mm,116.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (174.25mm,117.87mm)(174.25mm,134.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (174.25mm,137.37mm)(174.25mm,153.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6846.613mil|Location2.X=6918.05mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (174.25mm,154.87mm)(174.25mm,171.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.438mil|Location2.X=7162.433mil|Location1.Y=3884.434mil|Location2.Y=3925.054mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.438mil|Location2.X=7162.433mil|Location1.Y=3884.434mil|Location2.Y=3925.054mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.267mm &lt; 1mm) Between Board Edge And Track (181.375mm,68.947mm)(181.375mm,98.947mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.438mil|Location2.X=7162.433mil|Location1.Y=3884.434mil|Location2.Y=3925.054mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7120.438mil|Location2.X=7162.433mil|Location1.Y=3884.434mil|Location2.Y=3925.054mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.267mm &lt; 1mm) Between Board Edge And Track (181.375mm,98.947mm)(185.975mm,98.947mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7301.54mil|Location2.X=7343.535mil|Location1.Y=3884.434mil|Location2.Y=3925.054mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7301.54mil|Location2.X=7343.535mil|Location1.Y=3884.434mil|Location2.Y=3925.054mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.267mm &lt; 1mm) Between Board Edge And Track (185.975mm,68.947mm)(185.975mm,98.947mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7905.126mil|Location2.X=7976.562mil|Location1.Y=2837.44mil|Location2.Y=2864.686mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7905.126mil|Location2.X=7976.562mil|Location1.Y=2837.44mil|Location2.Y=2864.686mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (190.135mm,72.417mm)(202.135mm,72.417mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7905.126mil|Location2.X=7976.562mil|Location1.Y=3840.589mil|Location2.Y=3867.836mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7905.126mil|Location2.X=7976.562mil|Location1.Y=3840.589mil|Location2.Y=3867.836mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (190.135mm,97.897mm)(202.135mm,97.897mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7944.448mil|Location2.X=8015.884mil|Location1.Y=3339.015mil|Location2.Y=3366.261mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7944.448mil|Location2.X=8015.884mil|Location1.Y=3339.015mil|Location2.Y=3366.261mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (202.135mm,72.417mm)(202.135mm,97.897mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1793.306mil|Location2.X=1864.742mil|Location1.Y=2446.377mil|Location2.Y=2473.623mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1793.306mil|Location2.X=1864.742mil|Location1.Y=2446.377mil|Location2.Y=2473.623mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (45.896mm,52.284mm)(45.896mm,72.684mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.387mil|Location2.X=1942.823mil|Location1.Y=2044.802mil|Location2.Y=2072.048mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.387mil|Location2.X=1942.823mil|Location1.Y=2044.802mil|Location2.Y=2072.048mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (45.896mm,52.284mm)(57.896mm,52.284mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.387mil|Location2.X=1942.823mil|Location1.Y=2847.952mil|Location2.Y=2875.198mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1871.387mil|Location2.X=1942.823mil|Location1.Y=2847.952mil|Location2.Y=2875.198mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (45.896mm,72.684mm)(57.896mm,72.684mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2259.06mil|Location2.X=2301.055mil|Location1.Y=2018.902mil|Location2.Y=2059.522mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2259.06mil|Location2.X=2301.055mil|Location1.Y=2018.902mil|Location2.Y=2059.522mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.722mm &lt; 1mm) Between Board Edge And Track (57.896mm,52.284mm)(57.896mm,72.684mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=4258.03mil|Location2.Y=4285.277mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,100.37mm)(75.75mm,116.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=3937.952mil|Location2.Y=3965.198mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=3937.952mil|Location2.Y=3965.198mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,100.37mm)(81.05mm,100.37mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=4578.109mil|Location2.Y=4605.355mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=4578.109mil|Location2.Y=4605.355mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,116.63mm)(81.05mm,116.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=4947.007mil|Location2.Y=4974.253mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,117.87mm)(75.75mm,134.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=4626.928mil|Location2.Y=4654.175mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=4626.928mil|Location2.Y=4654.175mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,117.87mm)(81.05mm,117.87mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=5267.085mil|Location2.Y=5294.332mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=5267.085mil|Location2.Y=5294.332mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,134.13mm)(81.05mm,134.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=5714.723mil|Location2.Y=5741.97mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,137.37mm)(75.75mm,153.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=5394.645mil|Location2.Y=5421.891mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=5394.645mil|Location2.Y=5421.891mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,137.37mm)(81.05mm,137.37mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=6034.802mil|Location2.Y=6062.048mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=6034.802mil|Location2.Y=6062.048mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,153.63mm)(81.05mm,153.63mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2968.658mil|Location2.X=3040.095mil|Location1.Y=6403.699mil|Location2.Y=6430.946mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,154.87mm)(75.75mm,171.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=6083.621mil|Location2.Y=6110.867mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=6083.621mil|Location2.Y=6110.867mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,154.87mm)(81.05mm,154.87mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=6723.778mil|Location2.Y=6751.025mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2981.387mil|Location2.X=3052.824mil|Location1.Y=6723.778mil|Location2.Y=6751.025mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 1mm) Between Board Edge And Track (75.75mm,171.13mm)(81.05mm,171.13mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=4035.402mil|Location2.Y=4077.396mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=4035.402mil|Location2.Y=4077.396mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,103.05mm)(84.138mm,103.05mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=4464.535mil|Location2.Y=4506.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=4464.535mil|Location2.Y=4506.53mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,113.95mm)(86.678mm,113.95mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=4724.378mil|Location2.Y=4766.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=4724.378mil|Location2.Y=4766.373mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,120.55mm)(84.138mm,120.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=5153.512mil|Location2.Y=5195.507mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=5153.512mil|Location2.Y=5195.507mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,131.45mm)(86.678mm,131.45mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=5492.095mil|Location2.Y=5534.09mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=5492.095mil|Location2.Y=5534.09mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,140.05mm)(84.138mm,140.05mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=5921.228mil|Location2.Y=5963.223mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=5921.228mil|Location2.Y=5963.223mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,150.95mm)(86.678mm,150.95mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=6181.071mil|Location2.Y=6223.066mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=6181.071mil|Location2.Y=6223.066mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,157.55mm)(84.138mm,157.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=6610.205mil|Location2.Y=6652.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\OneDrive\Altium\Projects\TO247 Bridge\Power board\TO247 Power Board_flipped.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.346mil|Location2.X=3052.966mil|Location1.Y=6610.205mil|Location2.Y=6652.2mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.941mm &lt; 1mm) Between Board Edge And Track (78mm,168.45mm)(86.678mm,168.45mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

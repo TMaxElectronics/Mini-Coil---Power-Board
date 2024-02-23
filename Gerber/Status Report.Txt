@@ -1,0 +1,10 @@
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [[No Variations]] of BOM Document [Mini-Coil - Power Board.BomDoc]
+   Generated File[//d.docs.live.net/68fbceef49caa884/Altium/Projects/TO247 Bridge/Power board/Gerber/V1.0b/Bill of Materials-Mini-Coil - Power Board.xlsx]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 21:47:31 On 23/02/2024
