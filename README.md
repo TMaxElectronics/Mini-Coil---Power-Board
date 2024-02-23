@@ -38,7 +38,8 @@ Then continue with the smaller THT parts, like the 100k voltage sense resistors 
 
 Just a top before you start with the large parts: this board has a super high thermal mass (especially noticeable on the pads of the power devices). You can make your life easier by using leaded solder, heating the board with some hot air as you solder (not too hot, you don't want to burn anything) or even better: pre-heat the board to 150°C or so in an oven (but use gloves when placing components of course :P).
 Next place the redcube terminals and the current sensor and make doubly sure they are all soldered properly. The solder needs to flow all the way through the hole and up to the actual block or the terminals will break off after a while (trust me, I've tried to be lazy here :P). If you are having trouble you can apply some flux to the top of the hole and use hot air as support. **DO NOT** solder from both sides, that coul easily trap an air pocket in the joint and make it look good without actually being rigid enough!
-Also make sure that the redcubes (especially the male ones) are soldered in flat and parallel with the board, otherwise it will be hard to connect the cap-board.
+
+**very important** make sure that the pinheaders as well as te redcubes are soldered in as level/square to the board as possible! If you don't do this you might not be able to connect the cap board or the signal board.
 
 Then continue on with the remaining parts as you see fit, but **don't solder in the IGBTs and the rectifier just yet**, that is done in the bridge assembly step later.
 
